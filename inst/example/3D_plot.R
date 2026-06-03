@@ -1,12 +1,16 @@
-setwd("Y:/long/publication_datasets/Vannan_2023_Lung_Fibrosis/Rcode/cellgpsr/example")
-
 # 加载必要的 R 包
 library(dplyr)
 library(reshape2)
 library(ggplot2)
 
-# 使用正斜杠（推荐）
-data <- readRDS("Y:/taobo/Downloads/TSOHP/GSE250346_Seurat_GSE250346_CORRECTED_SEE_RDS_README_082024.rds")
+seurat_rds <- Sys.getenv(
+  "CELLGPSR_FIBROSIS_SEURAT_RDS",
+  unset = "GSE250346_Seurat_GSE250346_CORRECTED_SEE_RDS_README_082024.rds"
+)
+if (!file.exists(seurat_rds)) {
+  stop("Set CELLGPSR_FIBROSIS_SEURAT_RDS to the fibrosis Seurat RDS file.")
+}
+data <- readRDS(seurat_rds)
 
 metadata <- data@meta.data
 

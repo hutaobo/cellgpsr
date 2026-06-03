@@ -1,5 +1,15 @@
+library(cellgpsr)
 library(readr)
-X874141_transcripts <- read_csv("Y:/long/projects/Pakagedevelopment/SpatialMap/notebook/874141_transcripts.csv")
+
+transcripts_csv <- Sys.getenv("CELLGPSR_NPC_TRANSCRIPTS_CSV", unset = "874141_transcripts.csv")
+cells_csv <- Sys.getenv("CELLGPSR_NPC_CELLS_CSV", unset = "874141_celltype.csv")
+if (!file.exists(transcripts_csv)) {
+  stop("Set CELLGPSR_NPC_TRANSCRIPTS_CSV to the NPC transcript CSV file.")
+}
+if (!file.exists(cells_csv)) {
+  stop("Set CELLGPSR_NPC_CELLS_CSV to the NPC cell-type CSV file.")
+}
+X874141_transcripts <- read_csv(transcripts_csv)
 
 
 # 合并cell和transcript的StructureMap ------------------------------------------
@@ -8,13 +18,10 @@ X874141_transcripts <- read_csv("Y:/long/projects/Pakagedevelopment/SpatialMap/n
 transcript = subset(X874141_transcripts, grepl("^CXCL5", feature_name))
 transcript$feature_name <- paste0("$\\textit{", transcript$feature_name, "}$")
 
-cells = read.csv("Y:/long/projects/NPC/Ximum5000 group1 and group 2 raw data/874141_celltype.csv")
+cells = read.csv(cells_csv)
 cells$feature_name <- paste0("$\\textbf{", gsub(" ", "~", cells$feature_name), "}$")
 
 df = rbind(transcript, cells)
-
-source("Y:/long/projects/NPC/rcode/compute_cophenetic_distances_from_df.R")
-source("Y:/long/projects/Pakagedevelopment/SpatialMap/cellgpsr/R/plot_cophenetic_heatmap.R")
 
 # 计算 cophenetic 距离
 result <- compute_cophenetic_distances_from_df(

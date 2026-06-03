@@ -1,13 +1,18 @@
-setwd("./example")
-
 # 加载必要的 R 包
+library(cellgpsr)
 library(dplyr)
 library(reshape2)
 library(ggplot2)
 library(cluster)
 
-# 读取 Seurat 对象，建议使用正斜杠（/）
-seurat_data <- readRDS("GSE250346_Seurat_GSE250346_CORRECTED_SEE_RDS_README_082024.rds")
+seurat_rds <- Sys.getenv(
+  "CELLGPSR_FIBROSIS_SEURAT_RDS",
+  unset = "GSE250346_Seurat_GSE250346_CORRECTED_SEE_RDS_README_082024.rds"
+)
+if (!file.exists(seurat_rds)) {
+  stop("Set CELLGPSR_FIBROSIS_SEURAT_RDS to the fibrosis Seurat RDS file.")
+}
+seurat_data <- readRDS(seurat_rds)
 
 # 提取 Seurat 对象的元数据
 seurat_metadata <- seurat_data@meta.data
@@ -17,8 +22,6 @@ selected_sample <- c("VUILD110LA")
 
 # 根据样本名称筛选对应的元数据
 filtered_metadata <- seurat_metadata[seurat_metadata$sample == selected_sample, ]
-
-source('../R/compute_cluster_nn_distance_df.R')
 
 # 调用自定义函数计算细胞到各簇最近邻距离的数据框
 nn_distance_df <- compute_cluster_nn_distance_df(filtered_metadata,

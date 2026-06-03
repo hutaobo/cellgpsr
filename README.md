@@ -10,7 +10,9 @@ This repository is maintained as a reviewer-friendly code companion for the asso
 - Derive row-wise and column-wise cophenetic distance matrices from coordinate tables.
 - Generate publication-style heatmaps for StructureMap and related outputs.
 - Run transcript-by-cell analysis from cell metadata and transcript coordinates.
-- Provide example scripts under `inst/example/` for manuscript-oriented analyses.
+- Provide repository-level example scripts under `inst/example/` for
+  manuscript-oriented analyses. These examples require user-supplied public or
+  local dataset paths and are not installed as part of the R package build.
 - Launch an interactive Shiny application for exploratory use.
 
 ## Repository layout
@@ -83,7 +85,7 @@ plot_cophenetic_heatmap(
 
 If you use this repository in connection with manuscript review, please cite the associated manuscript:
 
-> Cophenetic Spatial Topology Embedding reveals multiscale tissue architecture in spatial omics
+> Cophenetic Spatial Topology Embedding reveals hierarchical tissue architecture in spatial omics
 
 ## License
 

@@ -1,7 +1,10 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^^example$$
-^^example/\.*$$
+^example$
+^example/.*$
+^inst/example/.*$
+^\.\.Rcheck$
+^cellgpsr_.*\.tar\.gz$
 ^REVIEWER_GUIDE\.md$
 ^GEOmetadb\.sqlite$
 ^GEOmetadb\.sqlite\.gz$

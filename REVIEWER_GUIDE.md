@@ -15,7 +15,9 @@ This repository contains the `cellgpsr` R package companion to the Cell-GPS work
 - `R/`
   Core package implementation.
 - `inst/example/`
-  Example analysis scripts used during workflow development.
+  Repository-level example analysis templates used during workflow development.
+  These scripts require user-supplied dataset paths and are intentionally kept
+  separate from the installed R package build.
 - `DESCRIPTION`
   Package metadata and declared dependencies.
 
@@ -36,4 +38,4 @@ For the basic cophenetic-distance workflow, the minimal required columns are:
 
 ## Reproducibility note
 
-Large local GEO database files and external datasets are not committed to this repository. The repository is intended to expose the analysis code and package structure used in the study without bundling large local artifacts.
+Large local GEO database files and external datasets are not committed to this repository. The repository is intended to expose the analysis code and package structure used in the study without bundling large local artifacts. Example scripts should be run only after replacing the documented input placeholders or setting the relevant environment variables.

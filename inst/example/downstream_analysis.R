@@ -6,8 +6,13 @@
 #######################################################################
 
 ## ======================= USER PARAMETERS =========================== ##
-data_dir       <- "Y:/long/10X_datasets/Xenium/Xenium_5K/t_by_c_result/" %>%
-  file.path("t_by_c_Xenium_Prime_Mouse_Pup_FFPE_outs")
+data_dir       <- Sys.getenv(
+  "CELLGPSR_TBC_RESULT_DIR",
+  unset = file.path(".", "t_by_c_Xenium_Prime_Mouse_Pup_FFPE_outs")
+)
+if (!dir.exists(data_dir)) {
+  stop("Set CELLGPSR_TBC_RESULT_DIR to a transcript-by-cell result directory.")
+}
 
 t_and_c_thresh <- 0.05      # keep rows with t_and_c < this value
 pct_thresh     <- 10        # keep rows with pct      < this value

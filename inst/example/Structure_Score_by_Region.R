@@ -1,6 +1,14 @@
 library(reshape2)  # 加载 melt 所在包
+library(cellgpsr)
 
-cells_partitioned_by_annotation <- read.csv("Y:/long/publication_datasets/Vannan_2023_Lung_Fibrosis/Xenium/HE_annotations/cells_partitioned_by_annotation.csv")
+region_csv <- Sys.getenv(
+  "CELLGPSR_FIBROSIS_REGION_CSV",
+  unset = "cells_partitioned_by_annotation.csv"
+)
+if (!file.exists(region_csv)) {
+  stop("Set CELLGPSR_FIBROSIS_REGION_CSV to the fibrosis region-annotation CSV file.")
+}
+cells_partitioned_by_annotation <- read.csv(region_csv)
 metadata <- cells_partitioned_by_annotation[!duplicated(cells_partitioned_by_annotation$full_cell_id), ]
 
 sample_list <- unique(metadata$sample)
